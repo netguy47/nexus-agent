@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "NEXUS AI Agent",
+  "version": "1.0.0",
+  "description": "AI-powered sidebar agent for email, proposals, job apps, and Antigravity bridge.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "identity",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://*.upwork.com/*",
+    "https://*.fiverr.com/*",
+    "https://*.freelancer.com/*",
+    "https://*.linkedin.com/*",
+    "https://*.indeed.com/*",
+    "https://mail.google.com/*",
+    "https://docs.google.com/*",
+    "https://drive.google.com/*",
+    "https://notebooklm.google.com/*",
+    "https://api.anthropic.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.upwork.com/*",
+        "https://*.fiverr.com/*",
+        "https://*.freelancer.com/*",
+        "https://*.linkedin.com/*",
+        "https://*.indeed.com/*",
+        "https://mail.google.com/*",
+        "https://docs.google.com/*",
+        "https://drive.google.com/*",
+        "https://notebooklm.google.com/*",
+        "https://*/*"
+      ],
+      "js": ["src/content.js"],
+      "css": ["src/sidebar.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_title": "NEXUS AI Agent",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "oauth2": {
+    "client_id": "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/documents"
+    ]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["src/sidebar.html", "icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
